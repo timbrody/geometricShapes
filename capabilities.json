@@ -1,34 +1,30 @@
 {
     "dataRoles": [
         {
-            "displayName": "Category Data",
+            "displayName": "Category Data (ignore)",
             "name": "category",
             "kind": "Grouping"
         },
         {
-            "displayName": "Measure Data",
+            "displayName": "Measure Data (ignore)",
             "name": "measure",
             "kind": "Measure"
         }
     ],
     "objects": {
-        "dataPoint": {
-            "displayName": "Data colors",
+        "shape": {
+            "displayName": "Shape",
             "properties": {
-                "defaultColor": {
-                    "displayName": "Default color",
+                "title": {
+                    "displayName": "Title",
                     "type": {
-                        "fill": {
-                            "solid": {
-                                "color": true
-                            }
-                        }
+                        "text": true
                     }
                 },
-                "showAllDataPoints": {
-                    "displayName": "Show all",
+                "rotation": {
+                    "displayName": "Rotation",
                     "type": {
-                        "bool": true
+                        "numeric": true
                     }
                 },
                 "fill": {
@@ -41,17 +37,21 @@
                         }
                     }
                 },
-                "fillRule": {
-                    "displayName": "Color saturation",
-                    "type": {
-                        "fill": {}
-                    }
-                },
-                 "fontSize": {
+                "fontSize": {
                     "displayName": "Text Size",
                     "type": {
                         "formatting": {
                             "fontSize": true
+                        }
+                    }
+                },
+                "fontColor": {
+                    "displayName": "Text Color",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
                         }
                     }
                 }

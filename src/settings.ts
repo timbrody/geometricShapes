@@ -30,19 +30,19 @@ import { dataViewObjectsParser } from "powerbi-visuals-utils-dataviewutils";
 import DataViewObjectsParser = dataViewObjectsParser.DataViewObjectsParser;
 
 export class VisualSettings extends DataViewObjectsParser {
-      public dataPoint: dataPointSettings = new dataPointSettings();
-      }
+  public shape: shapeSettings = new shapeSettings();
+}
 
-    export class dataPointSettings {
-     // Default color
-      public defaultColor: string = "";
-     // Show all
-      public showAllDataPoints: boolean = true;
-     // Fill
-      public fill: string = "";
-     // Color saturation
-      public fillRule: string = "";
-     // Text Size
-      public fontSize: number = 12;
-     }
+export class shapeSettings {
+  // Rotation
+  public rotation: number = 0;
+  // Fill
+  public fill: string = "";
+  // Text Size
+  public fontSize: number = 12;
+  // Text Color
+  public fontColor: string = "";
+  // Title
+  public title: string = "";
+}
 

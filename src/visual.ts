@@ -36,34 +36,71 @@ import VisualObjectInstance = powerbi.VisualObjectInstance;
 import DataView = powerbi.DataView;
 import VisualObjectInstanceEnumerationObject = powerbi.VisualObjectInstanceEnumerationObject;
 
+import * as d3 from "d3";
+import { curveCardinalClosed } from "d3";
+import { Color } from "d3";
+type Selection<T extends d3.BaseType> = d3.Selection<T, any, any, any>;
+
 import { VisualSettings } from "./settings";
 export class Visual implements IVisual {
     private target: HTMLElement;
-    private updateCount: number;
     private settings: VisualSettings;
     private textNode: Text;
+    private svg: Selection<SVGElement>;
+    private pathContainer: Selection<SVGElement>;
+    private path: Selection<SVGElement>;
+    private title: Selection<SVGElement>;
+    private titleContainer: Selection<SVGElement>;
 
     constructor(options: VisualConstructorOptions) {
-        console.log('Visual constructor', options);
         this.target = options.element;
-        this.updateCount = 0;
-        if (document) {
-            const new_p: HTMLElement = document.createElement("p");
-            new_p.appendChild(document.createTextNode("Update count:"));
-            const new_em: HTMLElement = document.createElement("em");
-            this.textNode = document.createTextNode(this.updateCount.toString());
-            new_em.appendChild(this.textNode);
-            new_p.appendChild(new_em);
-            this.target.appendChild(new_p);
-        }
+
+        this.svg = d3.select(this.target).append('svg');
+        this.pathContainer = this.svg.append('svg');
+        this.path = this.pathContainer.append('path');
+        this.titleContainer = this.svg.append('svg');
+        this.title = this.titleContainer.append('text');
+
+        this.path
+            .attr('d', 'm 0,0 L .75,0 L 1,.5 L .75,1 L 0,1 L .25,.5 Z')
+            ;
     }
 
     public update(options: VisualUpdateOptions) {
         this.settings = Visual.parseSettings(options && options.dataViews && options.dataViews[0]);
-        console.log('Visual update', options);
-        if (this.textNode) {
-            this.textNode.textContent = (this.updateCount++).toString();
-        }
+
+        let rotation: number = this.settings.shape.rotation;
+
+        let width: number = this.target.offsetWidth;
+        let height: number = this.target.offsetHeight;
+
+        this.svg
+            .attr('width', width)
+            .attr('height', height)
+            ;
+        this.pathContainer
+            .attr('width', '100%')
+            .attr('height', '100%')
+            .attr('viewBox', '0 0 1 1')
+            .attr('preserveAspectRatio', 'none')
+            ;
+        this.path
+            .attr('transform', `rotate(${rotation} .5 .5)`)
+            .attr('fill', this.settings.shape.fill)
+            ;
+        this.titleContainer
+            .attr('width', '100%')
+            .attr('height', '100%')
+            ;
+        this.title
+            .attr('x', '50%')
+            .attr('y', '50%')
+            .attr('dy', '0.35em')
+            .attr('text-anchor', 'middle')
+            .style('font-size', `${this.settings.shape.fontSize}pt`)
+            .style('fill', this.settings.shape.fontColor)
+            .text(this.settings.shape.title)
+            ;
     }
 
     private static parseSettings(dataView: DataView): VisualSettings {
