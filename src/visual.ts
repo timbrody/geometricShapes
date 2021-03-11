@@ -74,6 +74,9 @@ export class Visual implements IVisual {
         let width: number = this.target.offsetWidth;
         let height: number = this.target.offsetHeight;
 
+        // set the indent to half the length of the shortest side
+        let indent: number = Math.min(width, height) / 2 / Math.max(width, height);
+
         this.svg
             .attr('width', width)
             .attr('height', height)
@@ -85,8 +88,11 @@ export class Visual implements IVisual {
             .attr('preserveAspectRatio', 'none')
             ;
         this.path
+            .attr('d', `m 0,0 L ${1 - indent},0 L 1,.5 L ${1 - indent},1 L 0,1 L ${indent},.5 Z`)
             .attr('transform', `rotate(${rotation} .5 .5)`)
             .attr('fill', this.settings.shape.fill)
+            .attr('stroke', this.settings.shape.stroke)
+            .attr('stroke-width', 1 / width)
             ;
         this.titleContainer
             .attr('width', '100%')

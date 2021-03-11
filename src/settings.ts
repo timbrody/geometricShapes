@@ -37,11 +37,13 @@ export class shapeSettings {
   // Rotation
   public rotation: number = 0;
   // Fill
-  public fill: string = "";
+  public fill: string = "#ffff00";
+  // Stroke
+  public stroke: string = "#000000";
   // Text Size
-  public fontSize: number = 12;
+  public fontSize: number = 14;
   // Text Color
-  public fontColor: string = "";
+  public fontColor: string = "#000000";
   // Title
   public title: string = "";
 }

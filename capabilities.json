@@ -37,6 +37,16 @@
                         }
                     }
                 },
+                "stroke": {
+                    "displayName": "Stroke",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
                 "fontSize": {
                     "displayName": "Text Size",
                     "type": {
